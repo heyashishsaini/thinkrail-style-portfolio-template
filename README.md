@@ -145,7 +145,3 @@ The site is statically generated and deploys to any Next.js-compatible host. [Ve
 ## Credits
  
 The visual design is inspired by the [ThinkRail](https://thinkrail.ai) website. This is an independent template and is not affiliated with ThinkRail. If you reuse ThinkRail's branding assets (logo, wordmark, OG images), replace them with your own before publishing.
- 
-## License
- 
-Add a license of your choice (for example MIT) in a `LICENSE` file.
