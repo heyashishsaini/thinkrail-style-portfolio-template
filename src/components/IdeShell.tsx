@@ -49,8 +49,8 @@ export function IdeShell({ workspace, nav, skipHref, filetree, children }: IdeSh
           <div className="ml-auto flex items-center gap-2.5">
             <a
               className="inline-flex cursor-pointer items-center gap-[7px] rounded px-2 py-1.5 text-[13px] text-muted hover:bg-hover hover:text-ink hover:no-underline"
-              href="https://github.com/your-github-username"
-              aria-label="Ashish Kumar on GitHub"
+              href="https://github.com/heyashishsaini/thinkrail-style-portfolio-template"
+              aria-label="Source Code"
             >
               <Icon name="github" filled />
             </a>
@@ -204,10 +204,10 @@ export function IdeShell({ workspace, nav, skipHref, filetree, children }: IdeSh
           <span className="inline-flex items-center gap-1.5 max-[560px]:w-full max-[560px]:flex-wrap max-[560px]:justify-start">
             © {new Date().getFullYear()}{" "}
             <a
-              href="mailto:hello@example.com"
+              href="https://github.com/heyashishsaini/thinkrail-style-portfolio-template"
               className="text-inherit no-underline hover:text-ink hover:underline"
             >
-              Ashish Kumar
+              Ashish Kumar (Template Source Code)
             </a>{" "}
             <span className="max-[560px]:hidden" aria-hidden="true">
               ·
