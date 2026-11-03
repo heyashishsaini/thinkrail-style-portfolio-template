@@ -86,7 +86,6 @@ This sets `metadataBase` for canonical URLs and social cards. It defaults to a p
     │   ├── blog.ts             # Markdown loading and rendering
     │   ├── postMeta.ts         # Post metadata helpers
     │   └── theme.ts            # Theme storage and normalisation
-    ├── vibecoding/             # Shared site header and footer
     └── styles.css              # Design tokens and component styles
 ```
  
