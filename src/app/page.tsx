@@ -32,7 +32,7 @@ export default function HomePage() {
           <div className="hero-ctas">
             <a className="btn btn-primary" href="#projects">View projects</a>
             <a className="btn" href="#contact">Let&apos;s talk</a>
-            <a className="btn" href="https://github.com/your-github-username" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a className="btn" href="https://github.com/heyashishsaini/thinkrail-style-portfolio-template" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </section>
 
@@ -83,7 +83,7 @@ export default function HomePage() {
           <div className="hero-ctas">
             <a className="btn btn-primary" href="mailto:hello@example.com">Email me</a>
             <a className="btn" href="https://www.linkedin.com/in/your-linkedin-handle/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a className="btn" href="https://github.com/your-github-username" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a className="btn" href="https://github.com/heyashishsaini/thinkrail-style-portfolio-template" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
           <p className="file-comment mt-6">Update the email, GitHub username, LinkedIn handle, experience, and project data before publishing.</p>
         </section>
