@@ -1,0 +1,377 @@
+@import "tailwindcss";
+@import "../styles.css";
+
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist/wght-italic.css";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/jetbrains-mono/wght-italic.css";
+@import "@fontsource-variable/orbitron";
+
+/* ════════════════════════════════════════════════════════════════════════
+   Derived tokens not in styles.css — accent washes and raised surfaces.
+   These depend on --accent / --elevated / --container-workspace-bg from
+   the palette, so they update automatically when data-theme changes.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --accent-faint: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-wash: color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-active: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 35%, transparent);
+  --accent-border: color-mix(in srgb, var(--accent) 45%, transparent);
+  --accent-beat: color-mix(in srgb, var(--accent) 55%, transparent);
+  --accent-hover-mix: color-mix(in srgb, var(--accent) 85%, white);
+
+  --surface-30: color-mix(in srgb, var(--elevated) 30%, var(--container-workspace-bg));
+  --surface-40: color-mix(in srgb, var(--elevated) 40%, var(--container-workspace-bg));
+  --surface-55: color-mix(in srgb, var(--elevated) 55%, var(--container-workspace-bg));
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Tailwind theme — every utility below is backed by the tokens above, so
+   `data-theme` swaps the whole palette without a rebuild.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@custom-variant max-rail (@media (width < 74rem));
+
+@theme inline {
+  /* Fonts — styles.css defines --font-sans, --font-mono, --font-display on :root */
+  --font-family-sans: var(--font-sans);
+  --font-family-mono: var(--font-mono);
+  --font-family-display: var(--font-display);
+
+  --color-chrome: var(--chrome);
+  --color-workspace: var(--container-workspace-bg);
+  --color-header: var(--container-header-bg);
+  --color-elevated: var(--elevated);
+  --color-hover: var(--hover);
+  --color-input: var(--input);
+  --color-line: var(--border);
+  --color-line2: var(--border2);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-hint: var(--hint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-link: var(--link);
+  --color-green: var(--green);
+  --color-gold: var(--gold);
+  --color-red: var(--red);
+  --color-blue: var(--blue);
+
+  --color-accent-faint: var(--accent-faint);
+  --color-accent-wash: var(--accent-wash);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-active: var(--accent-active);
+  --color-accent-line: var(--accent-line);
+  --color-accent-border: var(--accent-border);
+  --color-accent-beat: var(--accent-beat);
+  --color-accent-hover-mix: var(--accent-hover-mix);
+
+  --color-surface-30: var(--surface-30);
+  --color-surface-40: var(--surface-40);
+  --color-surface-55: var(--surface-55);
+
+  --color-sx-kw: var(--sx-kw);
+  --color-sx-str: var(--sx-str);
+  --color-sx-num: var(--sx-num);
+  --color-sx-fn: var(--sx-fn);
+  --color-sx-type: var(--sx-type);
+  --color-sx-cm: var(--sx-cm);
+  --color-sx-prop: var(--sx-prop);
+  --color-sx-punct: var(--sx-punct);
+
+  /* right rail collapses below this width */
+  --breakpoint-rail: 74rem;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Base
+   ════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--chrome);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden; /* the editor pane owns scrolling, like the app */
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+    transition: color 150ms ease-out;
+  }
+
+  a:hover {
+    color: var(--accent-hover-mix);
+    text-decoration: underline;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--accent-wash);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 1px;
+  }
+}
+
+/* Theme-toggle glyphs: sun in dark, moon in light. */
+[data-theme="dark"] .theme-icon-moon,
+[data-theme="light"] .theme-icon-sun {
+  display: none;
+}
+[data-theme="dark"] .theme-icon-sun,
+[data-theme="light"] .theme-icon-moon {
+  display: block;
+}
+
+/* The light theme's accent pill is already dark enough; keep the label monochrome. */
+[data-theme="light"] .pill-accent {
+  --accent: var(--text);
+  background: transparent;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Component details that utilities cannot express
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* Scrollbars, themed like the app. */
+.editor-scroll,
+.filetree-scroll,
+.rail-left-scroll,
+.term-screen {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border2) transparent;
+}
+.editor-scroll::-webkit-scrollbar,
+.filetree-scroll::-webkit-scrollbar,
+.rail-left-scroll::-webkit-scrollbar,
+.term-screen::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.editor-scroll::-webkit-scrollbar-thumb,
+.filetree-scroll::-webkit-scrollbar-thumb,
+.rail-left-scroll::-webkit-scrollbar-thumb,
+.term-screen::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Terminal caret + chat streaming reveal (armed by JS only when motion is allowed). */
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.term-caret {
+  animation: caret-blink 1.1s steps(1) infinite;
+}
+
+html:not(.anim) .term-caret {
+  display: none;
+}
+
+html.anim .chat-demo[data-armed="true"] [data-step] {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+html.anim .chat-demo [data-step][data-on="true"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-caret {
+    animation: none;
+  }
+  .editor-scroll {
+    scroll-behavior: auto;
+  }
+}
+
+/* The center pane is a grid item as well as a flex parent.  Explicitly
+   constrain it on narrow screens so its scrollable editor stays inside the
+   app shell instead of widening the viewport or pushing the status bar away. */
+@media (max-width: 840px) {
+  /* Tailwind emits the 74rem rail rule after arbitrary-width variants.
+     Override the grid here so the hidden left rail cannot retain its track. */
+  .ide-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .editor {
+    min-width: 0;
+    overscroll-behavior: contain;
+  }
+
+  .file-section,
+  .blog-main {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Blog — rendered markdown keeps a prose stylesheet (the HTML comes from
+   the markdown pipeline, so there is no JSX to hang utilities on).
+   ════════════════════════════════════════════════════════════════════════ */
+
+.blog-content {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.blog-content :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.blog-content h1 {
+  font-size: 2rem;
+}
+.blog-content h2 {
+  font-size: 1.5rem;
+}
+.blog-content h3 {
+  font-size: 1.25rem;
+}
+
+.blog-content p {
+  margin-bottom: 1.5rem;
+}
+
+.blog-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.blog-content a:hover {
+  text-decoration: none;
+}
+
+.blog-content :is(ul, ol) {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+  list-style: revert;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content li::marker {
+  color: var(--accent);
+}
+
+.blog-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--accent);
+  background: var(--elevated);
+  font-style: italic;
+  color: var(--muted);
+}
+
+.blog-content code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.1em 0.3em;
+  background: var(--elevated);
+  border-radius: 0.25rem;
+}
+
+.blog-content pre {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.blog-content pre code {
+  padding: 0;
+  background: none;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Shiki dual-theme output (defaultColor: false) */
+.blog-content .shiki,
+.blog-content .shiki span {
+  color: var(--shiki-dark);
+  background: transparent;
+}
+
+[data-theme="light"] .blog-content .shiki,
+[data-theme="light"] .blog-content .shiki span {
+  color: var(--shiki-light);
+}
+
+.blog-content .shiki {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  background: var(--elevated);
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.blog-content iframe {
+  max-width: 100%;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.blog-content iframe[src*="youtube"],
+.blog-content iframe[src*="vimeo"] {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.blog-content hr {
+  margin: 3rem 0;
+  border: none;
+  border-top: 1px solid var(--border);
+}
